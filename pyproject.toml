@@ -3,7 +3,7 @@ name = "data-loader"
 version = "0.1.0"
 description = "Data loading utility"
 authors = [
-    {name = "Christopher J. Markiewicz", email = "effigies@gmail.com"},
+  {name = "The NiPreps Developers", email = "nipreps@gmail.com"}
 ]
 dependencies = [
   "importlib_resources; python_version < '3.11'",
@@ -11,6 +11,15 @@ dependencies = [
 requires-python = ">=3.8"
 readme = "README.md"
 license = {text = "Apache-2.0"}
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
 
 [build-system]
 requires = ["flit_core>=3.2,<4"]
