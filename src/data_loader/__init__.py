@@ -37,6 +37,7 @@ including interpreter-lifetime caching.
 
 import atexit
 import sys
+from typing import Union
 from contextlib import AbstractContextManager, ExitStack
 from functools import cached_property
 from pathlib import Path
@@ -139,7 +140,7 @@ class Loader:
     .. automethod:: cached
     """
 
-    def __init__(self, anchor: str | ModuleType):
+    def __init__(self, anchor: Union[str, ModuleType]):
         self._anchor = anchor
         self.files = files(anchor)
         # Allow class to have a different docstring from instances
