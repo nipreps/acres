@@ -51,7 +51,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest']
-        python-version: ${{ fromJson(needs.build-package.outputs.python-versions) }}
+        python-version: ${{ fromJson(needs.build.outputs.python-versions) }}
         include:
           - os: macos-latest
             python-version: 3
