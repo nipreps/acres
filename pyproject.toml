@@ -19,6 +19,7 @@ build-backend = "flit_core.buildapi"
 [tool.flit.sdist]
 include = [
   "LICENSE",
+  "tox.ini",
 ]
 
 [tool.pdm]
