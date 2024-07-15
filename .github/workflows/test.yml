@@ -44,7 +44,7 @@ jobs:
       python-versions: ${{ steps.baipp.outputs.supported_python_classifiers_json_array }}
 
   tests:
-    name: Tests on ${{ matrix.python-version }}
+    name: Tests on ${{ matrix.python-version }} (${{ matrix.os }})
     needs: build
     runs-on: ${{ matrix.os }}
     strategy:
