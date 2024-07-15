@@ -95,9 +95,5 @@ with Loader(somepkg).as_path('data') as somepkgdata:
     walk_dir(somepkgdata)
 ```
 
-Note that `Loader().cached()` is not recommended, as the method cache will contain a
-reference to the `Loader` instance, effectively making the object immortal.
-
-## Notes on cached resources
-
-The primary use case for `Loader` is as a module-level object, defined at import time.
+If `Loader().cached()` is used, the resources will remain available until the
+interpreter exists, even if the `Loader` instance is garbage collected.
