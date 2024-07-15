@@ -1,0 +1,130 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  FORCE_COLOR: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build & verify package
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: hynek/build-and-inspect-python-package@v2
+        id: baipp
+
+    outputs:
+      python-versions: ${{ steps.baipp.outputs.supported_python_classifiers_json_array }}
+
+  tests:
+    name: Tests on ${{ matrix.python-version }}
+    needs: build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest']
+        python-version: ${{ fromJson(needs.build-package.outputs.python-versions) }}
+        include:
+          - os: macos-latest
+            python-version: 3
+          - os: windows-latest
+            python-version: 3
+
+    steps:
+      - name: Download packages
+        uses: actions/download-artifact@v4
+        with:
+          name: Packages
+          path: dist/
+      - run: tar xf dist/*.tar.gz --strip-components=1
+      - name: Download git archive artifact
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
+          cache: pip
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+      - name: Update pip
+        run: pip install --upgrade pip
+
+      - name: Install tox
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install tox tox-gh-actions
+      - name: Show tox config
+        run: tox c
+      - name: Run tox
+        run: tox -v --exit-and-dump-after 1200 run --installpkg dist/*.whl
+
+      - uses: codecov/codecov-action@v4
+        if: ${{ always() }}
+        with:
+          files: cov.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  checks:
+    name: Checks
+    needs: build
+    runs-on: 'ubuntu-latest'
+    continue-on-error: true
+    strategy:
+      matrix:
+        check: ['style', 'typecheck', 'spellcheck']
+
+    steps:
+      - name: Download pre-built packages
+        uses: actions/download-artifact@v4
+        with:
+          name: Packages
+          path: dist
+      - run: tar xf dist/*.tar.gz --strip-components=1
+      - name: Show tox config
+        run: pipx run tox c
+      - name: Show tox config (this call)
+        run: pipx run tox c -e ${{ matrix.check }}
+      - name: Run check
+        run: pipx run tox -e ${{ matrix.check }}
+
+  publish:
+    runs-on: ubuntu-latest
+    environment: "Package deployment"
+    needs: [tests]
+    permissions:
+      # Required for trusted publishing
+      id-token: write
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
