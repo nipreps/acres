@@ -1,4 +1,3 @@
-import sys
 from data_loader import Loader
 from . import data
 

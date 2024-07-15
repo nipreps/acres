@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-from data_loader import EXIT_STACK, Loader
+from data_loader import Loader
 from .data import load_resource
 
 if sys.version_info >= (3, 11):
