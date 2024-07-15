@@ -29,6 +29,7 @@ build-backend = "flit_core.buildapi"
 include = [
   "LICENSE",
   "tox.ini",
+  "tests/",
 ]
 
 [tool.pdm]
