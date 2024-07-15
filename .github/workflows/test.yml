@@ -65,7 +65,6 @@ jobs:
           name: Packages
           path: dist/
       - run: tar xf dist/*.tar.gz --strip-components=1
-      - name: Download git archive artifact
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
