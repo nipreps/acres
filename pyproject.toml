@@ -30,8 +30,11 @@ build-backend = "pdm.backend"
 [tool.pdm]
 distribution = true
 
-[tool.pdm.build.sdist]
-includes = ["tox.ini"]
+[tool.pdm.build]
+source-includes = [
+  "tests/",
+  "tox.ini",
+]
 
 [tool.pdm.version]
 source = "scm"
