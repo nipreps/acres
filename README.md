@@ -1,5 +1,8 @@
 # Acres: Access resources on your terms
 
+[![PyPI release](https://img.shields.io/pypi/v/acres.svg)](https://pypi.python.org/project/acres/)
+[![Codecov Coverage report](https://codecov.io/github/nipreps/acres/graph/badge.svg?token=jVfxERJR5k)](https://codecov.io/github/nipreps/acres)
+
 This module aims to provide a simple way to access package resources that will
 fit most use cases.
 
