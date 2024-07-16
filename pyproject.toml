@@ -1,6 +1,5 @@
 [project]
 name = "acres"
-version = "0.1.0"
 description = "Access resources on your terms"
 authors = [
   {name = "The NiPreps Developers", email = "nipreps@gmail.com"}
@@ -22,20 +21,20 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
 ]
+dynamic = ["version"]
 
 [build-system]
-requires = ["flit_core>=3.2,<4"]
-build-backend = "flit_core.buildapi"
-
-[tool.flit.sdist]
-include = [
-  "LICENSE",
-  "tox.ini",
-  "tests/",
-]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 [tool.pdm]
 distribution = true
+
+[tool.pdm.build.sdist]
+includes = ["tox.ini"]
+
+[tool.pdm.version]
+source = "scm"
 
 [tool.ruff]
 line-length = 99
