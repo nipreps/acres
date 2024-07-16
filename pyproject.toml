@@ -1,7 +1,7 @@
 [project]
-name = "data-loader"
+name = "acres"
 version = "0.1.0"
-description = "Data loading utility"
+description = "Access resources on your terms"
 authors = [
   {name = "The NiPreps Developers", email = "nipreps@gmail.com"}
 ]

@@ -94,7 +94,7 @@ class Loader:
         .. automethod:: load_data.cached
         '''
 
-        from data_loader import Loader
+        from acres import Loader
 
         load_data = Loader(__package__)
 
@@ -117,7 +117,7 @@ class Loader:
 
     It is also possible to use ``Loader`` directly::
 
-        from data_loader import Loader
+        from acres import Loader
 
         Loader(other_package).readable('data/resource.ext').read_text()
 

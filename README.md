@@ -1,4 +1,4 @@
-# data-loader: Data-loading utility
+# Acres: Access resources on your terms
 
 This module aims to provide a simple way to access package resources that will
 fit most use cases.
@@ -15,7 +15,7 @@ with as_file(files(my_module) / 'data' / 'resource.ext') as resource_path:
 The `files()` and `as_file()` functions do not make the meanings obvious,
 and the different use cases do not obviously map on to these names.
 
-The solution: `data_loader.Loader` is a class that provides read, filesystem
+The solution: `acres.Loader` is a class that provides read, filesystem
 and cached filesystem access to package resources.
 
 ## Module data loader
@@ -48,7 +48,7 @@ In `src/mypkg/data/__init__.py`, add:
 .. automethod:: load_resource.cached
 '''
 
-from data_loader import Loader
+from acres import Loader
 
 load_resource = Loader(__package__)
 ```
@@ -83,10 +83,10 @@ whose explicitness might be more to your taste.
 
 ## On-demand data loading
 
-`data_loader` may be used as a library to work with any package:
+`acres` may be used as a library to work with any package:
 
 ```python
-from data_loader import Loader
+from acres import Loader
 import somepkg
 
 text: str = Loader(somepkg).readable('data/someresource.txt').read_text()

@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-from data_loader import Loader
+from acres import Loader
 from .data import load_resource
 
 if sys.version_info >= (3, 11):
@@ -9,7 +9,7 @@ else:
     from importlib_resources.abc import Traversable
 
 
-def test_data_loader():
+def test_acres():
     assert isinstance(load_resource, Loader)
 
     text_resource = load_resource.readable('text_file')
@@ -39,5 +39,5 @@ def test_data_loader():
     assert load_resource.readable('text_file') is not cached_text_resource
 
 
-def test_data_loader_docstring():
+def test_acres_docstring():
     assert 'text_file' in load_resource.__doc__
