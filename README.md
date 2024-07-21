@@ -61,7 +61,7 @@ load_resource = Loader(__package__)
 `mypkg.data.load_resource()` is now a function that will return a `Path` to a
 resource that is guaranteed to exist until interpreter exit:
 
-```
+```python
 from mypkg.data import load_resource
 
 resource_file: Path = load_resource('resource.ext')
