@@ -94,7 +94,7 @@ instances created cheaply and garbage collected when out of scope.
 
 ## Why acres?
 
-`importlib.resources` provides a simple, compsable interface, using the
+`importlib.resources` provides a simple, composable interface, using the
 `files()` and `as_file()` functions:
 
 ```python
