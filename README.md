@@ -55,7 +55,7 @@ In `src/mypkg/data/__init__.py`, add:
 
 from acres import Loader
 
-load_resource = Loader(__package__)
+load_resource = Loader(__spec__.name)
 ```
 
 `mypkg.data.load_resource()` is now a function that will return a `Path` to a
@@ -86,20 +86,16 @@ with load_resource.as_path('resourceDir') as resource_dir:
 Note that `load_resource()` is a shorthand for `load_resource.cached()`,
 whose explicitness might be more to your taste.
 
-### Type checking
+### The `__spec__.name` anchor
 
-Some type checkers may complain on `Loader(__package__)` because `__package__` may be `None`.
-To resolve this, add `assert __package__` before the call, for example:
+Previous versions recommended using `Loader(__package__)`.
+Before Python 3.10, `__package__` might be `None` during a [zipimport][],
+and `__package__` has been deprecated in Python 3.13, to be removed in 3.15.
 
-```python
-from acres import Loader
-
-assert __package__
-load_resource = Loader(__package__)
-```
-
-This does have a runtime cost, so `# type: ignore[reportArgumentType,unused-ignore]`
-can also be used to avoid incurring that, if import times are a concern.
+[`__spec__.parent`][ModuleSpec.parent] is an exact equivalent for `__package__`,
+but for `__init__.py` files, [`__spec__.name`][ModuleSpec.name] is equivalent.
+`__spec__.name` is also guaranteed to be a string and not `None`,
+which lets it play nicely with type checkers.
 
 ## Interpreter-scoped resources, locally scoped loaders
 
@@ -141,3 +137,5 @@ the accessed resources, including providing an interpreter-lifetime scope.
 
 [Traversable]: https://docs.python.org/3/library/importlib.resources.abc.html#importlib.resources.abc.Traversable
 [pathlib.Path]: https://docs.python.org/3/library/pathlib.html#pathlib.Path
+[ModuleSpec.name]: https://docs.python.org/3/library/importlib.html#importlib.machinery.ModuleSpec.name
+[ModuleSpec.parent]: https://docs.python.org/3/library/importlib.html#importlib.machinery.ModuleSpec.parent
