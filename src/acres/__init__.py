@@ -97,7 +97,7 @@ class Loader:
 
         from acres import Loader
 
-        load_data = Loader(__package__)
+        load_data = Loader(__spec__.name)
 
     :class:`~Loader` objects implement the :func:`callable` interface
     and generate a docstring, and are intended to be treated and documented
