@@ -170,7 +170,7 @@ class Loader:
 
         return '\n'.join(doclines)
 
-    def readable(self, *segments) -> Traversable:
+    def readable(self, *segments: str) -> Traversable:
         """Provide read access to a resource through a Path-like interface.
 
         This file may or may not exist on the filesystem, and may be
@@ -181,7 +181,7 @@ class Loader:
         """
         return self.files.joinpath(*segments)
 
-    def as_path(self, *segments) -> AbstractContextManager[Path]:
+    def as_path(self, *segments: str) -> AbstractContextManager[Path]:
         """Ensure data is available as a :class:`~pathlib.Path`.
 
         This method generates a context manager that yields a Path when
@@ -192,7 +192,7 @@ class Loader:
         """
         return as_file(self.files.joinpath(*segments))
 
-    def cached(self, *segments) -> Path:
+    def cached(self, *segments: str) -> Path:
         """Ensure data resource is available as a :class:`~pathlib.Path`.
 
         Any temporary files that are created remain available throughout
