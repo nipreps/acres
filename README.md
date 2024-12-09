@@ -86,6 +86,21 @@ with load_resource.as_path('resourceDir') as resource_dir:
 Note that `load_resource()` is a shorthand for `load_resource.cached()`,
 whose explicitness might be more to your taste.
 
+### Type checking
+
+Some type checkers may complain on `Loader(__package__)` because `__package__` may be `None`.
+To resolve this, add `assert __package__` before the call, for example:
+
+```python
+from acres import Loader
+
+assert __package__
+load_resource = Loader(__package__)
+```
+
+This does have a runtime cost, so `# type: ignore[reportArgumentType,unused-ignore]`
+can also be used to avoid incurring that, if import times are a concern.
+
 ## Interpreter-scoped resources, locally scoped loaders
 
 `Loader.cached` uses a global cache. This ensures that cached files do not get
