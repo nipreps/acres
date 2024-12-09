@@ -5,7 +5,7 @@ authors = [
   {name = "The NiPreps Developers", email = "nipreps@gmail.com"}
 ]
 dependencies = [
-  "importlib_resources; python_version < '3.11'",
+  "importlib_resources >=5.7; python_version < '3.11'",
 ]
 requires-python = ">=3.8"
 readme = "README.md"
