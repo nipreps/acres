@@ -66,7 +66,8 @@ atexit.register(EXIT_STACK.close)
 
 @cache
 def _cache_resource(resource: Traversable) -> Path:
-    return EXIT_STACK.enter_context(as_file(resource))
+    # PY310(importlib_resources): no-any-return, PY311+(importlib.resources): unused-ignore
+    return EXIT_STACK.enter_context(as_file(resource))  # type: ignore[no-any-return,unused-ignore]
 
 
 class Loader:
@@ -179,7 +180,8 @@ class Loader:
         This result is not cached or copied to the filesystem in cases where
         that would be necessary.
         """
-        return self.files.joinpath(*segments)
+        # PY310(importlib_resources): no-any-return, PY311+(importlib.resources): unused-ignore
+        return self.files.joinpath(*segments)  # type: ignore[no-any-return,unused-ignore]
 
     def as_path(self, *segments: str) -> AbstractContextManager[Path]:
         """Ensure data is available as a :class:`~pathlib.Path`.
@@ -190,7 +192,8 @@ class Loader:
         This result is not cached, and any temporary files that are created
         are deleted when the context is exited.
         """
-        return as_file(self.files.joinpath(*segments))
+        # PY310(importlib_resources): no-any-return, PY311+(importlib.resources): unused-ignore
+        return as_file(self.files.joinpath(*segments))  # type: ignore[no-any-return,unused-ignore]
 
     def cached(self, *segments: str) -> Path:
         """Ensure data resource is available as a :class:`~pathlib.Path`.
@@ -202,6 +205,7 @@ class Loader:
         data multiple times, but directories and their contents being
         requested separately may result in some duplication.
         """
-        return _cache_resource(self.files.joinpath(*segments))  # type: ignore[arg-type]
+        # PY310(importlib_resources): unused-ignore, PY311+(importlib.resources) arg-type
+        return _cache_resource(self.files.joinpath(*segments))  # type: ignore[arg-type,unused-ignore]
 
     __call__ = cached
