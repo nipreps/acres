@@ -9,7 +9,7 @@ else:
     from importlib_resources.abc import Traversable
 
 
-def test_acres():
+def test_acres() -> None:
     assert isinstance(load_resource, Loader)
 
     text_resource = load_resource.readable('text_file')
@@ -39,5 +39,6 @@ def test_acres():
     assert load_resource.readable('text_file') is not cached_text_resource
 
 
-def test_acres_docstring():
+def test_acres_docstring() -> None:
+    assert load_resource.__doc__
     assert 'text_file' in load_resource.__doc__
