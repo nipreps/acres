@@ -44,10 +44,7 @@ from functools import cached_property
 from pathlib import Path
 from types import ModuleType
 
-if sys.version_info >= (3, 9):
-    from functools import cache
-else:
-    from functools import lru_cache as cache
+from functools import cache
 
 if sys.version_info >= (3, 11):
     from importlib.resources import as_file, files
