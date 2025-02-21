@@ -47,3 +47,17 @@ inline-quotes = "single"
 
 [tool.ruff.format]
 quote-style = "single"
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  # Temporary zipimport module generated during tests
+  "*/mymodule.zip/*",
+]
+
+[tool.coverage.paths]
+source = [
+  "src/acres",
+  "**/site-packages/acres",
+]
