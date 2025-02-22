@@ -1,4 +1,15 @@
 
+<a id='changelog-0.3.0'></a>
+# 0.3.0 — 2025-02-22
+
+## Changed
+
+- Drop support for Python 3.8.
+
+## Infrastructure
+
+- Consolidate CI jobs to one per OS.
+
 <a id='changelog-0.2.0'></a>
 # 0.2.0 — 2024-12-09
 
