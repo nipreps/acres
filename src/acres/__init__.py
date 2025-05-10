@@ -62,7 +62,7 @@ atexit.register(EXIT_STACK.close)
 
 
 @cache
-def _cache_resource(anchor: str | ModuleType, segments: tuple[str]) -> Path:
+def _cache_resource(anchor: str | ModuleType, segments: tuple[str, ...]) -> Path:
     # PY310(importlib_resources): no-any-return, PY311+(importlib.resources): unused-ignore
     return EXIT_STACK.enter_context(as_file(files(anchor).joinpath(*segments)))  # type: ignore[no-any-return,unused-ignore]
 
@@ -203,7 +203,6 @@ class Loader:
         requested separately may result in some duplication.
         """
         # Use self._anchor and segments to ensure the cache does not depend on id(self.files)
-        # PY310(importlib_resources): unused-ignore, PY311+(importlib.resources) arg-type
-        return _cache_resource(self._anchor, segments)  # type: ignore[arg-type,unused-ignore]
+        return _cache_resource(self._anchor, segments)
 
     __call__ = cached
