@@ -39,19 +39,15 @@ from __future__ import annotations
 
 import atexit
 import sys
-from contextlib import AbstractContextManager, ExitStack
-from functools import cached_property
-from pathlib import Path
-from types import ModuleType
+from contextlib import ExitStack
+from functools import cache, cached_property
 
-from functools import cache
+from . import typ as t
 
 if sys.version_info >= (3, 11):
     from importlib.resources import as_file, files
-    from importlib.resources.abc import Traversable
 else:
     from importlib_resources import as_file, files
-    from importlib_resources.abc import Traversable
 
 __all__ = ['Loader']
 
@@ -62,7 +58,7 @@ atexit.register(EXIT_STACK.close)
 
 
 @cache
-def _cache_resource(anchor: str | ModuleType, segments: tuple[str, ...]) -> Path:
+def _cache_resource(anchor: str | t.ModuleType, segments: tuple[str, ...]) -> t.Path:
     # PY310(importlib_resources): no-any-return, PY311+(importlib.resources): unused-ignore
     return EXIT_STACK.enter_context(as_file(files(anchor).joinpath(*segments)))  # type: ignore[no-any-return,unused-ignore]
 
@@ -139,7 +135,7 @@ class Loader:
     .. automethod:: cached
     """
 
-    def __init__(self, anchor: str | ModuleType):
+    def __init__(self, anchor: str | t.ModuleType):
         self._anchor = anchor
         self.files = files(anchor)
         # Allow class to have a different docstring from instances
@@ -168,7 +164,7 @@ class Loader:
 
         return '\n'.join(doclines)
 
-    def readable(self, *segments: str) -> Traversable:
+    def readable(self, *segments: str) -> t.Traversable:
         """Provide read access to a resource through a Path-like interface.
 
         This file may or may not exist on the filesystem, and may be
@@ -180,7 +176,7 @@ class Loader:
         # PY310(importlib_resources): no-any-return, PY311+(importlib.resources): unused-ignore
         return self.files.joinpath(*segments)  # type: ignore[no-any-return,unused-ignore]
 
-    def as_path(self, *segments: str) -> AbstractContextManager[Path]:
+    def as_path(self, *segments: str) -> t.AbstractContextManager[t.Path]:
         """Ensure data is available as a :class:`~pathlib.Path`.
 
         This method generates a context manager that yields a Path when
@@ -192,7 +188,7 @@ class Loader:
         # PY310(importlib_resources): no-any-return, PY311+(importlib.resources): unused-ignore
         return as_file(self.files.joinpath(*segments))  # type: ignore[no-any-return,unused-ignore]
 
-    def cached(self, *segments: str) -> Path:
+    def cached(self, *segments: str) -> t.Path:
         """Ensure data resource is available as a :class:`~pathlib.Path`.
 
         Any temporary files that are created remain available throughout
