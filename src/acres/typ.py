@@ -61,7 +61,7 @@ if TYPE_CHECKING:
         from importlib.abc import Traversable
 else:
 
-    def __getattr__(name: str) -> object:
+    def __getattr__(name: str) -> type:
         types = {
             'AbstractContextManager': 'contextlib',
             'Path': 'pathlib',
