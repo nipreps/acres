@@ -37,13 +37,16 @@ The expected usage is::
 
 To get the runtime benefits of using this module, you should not import
 anything from it, but import the module and access symbols as attributes.
+For Python versions less than 3.14, `from __future__ import annotations`
+must be used to avoid eager loading of the types.
 
 The primary use for this in downstream tools is the
 :class:`~importlib.resources.abc.Traversable` type, which will be imported
-from ``importlib.resources`` or ``importlib_resources``, based on the Python
+from ``importlib.resources.abc`` or ``importlib.abc``, based on the Python
 version. However, other types that are not directly used in acres are also
 available.
 """
+
 import sys
 
 TYPE_CHECKING = False
@@ -55,7 +58,7 @@ if TYPE_CHECKING:
     if sys.version_info >= (3, 11):
         from importlib.resources.abc import Traversable
     else:
-        from importlib_resources.abc import Traversable
+        from importlib.abc import Traversable
 else:
 
     def __getattr__(name: str) -> object:
@@ -65,7 +68,7 @@ else:
             'ModuleType': 'types',
             'Traversable': 'importlib.resources.abc'
             if sys.version_info >= (3, 11)
-            else 'importlib_resources.abc',
+            else 'importlib.abc',
         }
         try:
             return getattr(__import__(types[name]), name)
@@ -74,7 +77,6 @@ else:
 
 
 __all__ = (
-    'TYPE_CHECKING',
     'AbstractContextManager',
     'ModuleType',
     'Path',

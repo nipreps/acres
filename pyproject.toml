@@ -4,9 +4,7 @@ description = "Access resources on your terms"
 authors = [
   {name = "The NiPreps Developers", email = "nipreps@gmail.com"}
 ]
-dependencies = [
-  "importlib_resources >=5.7; python_version < '3.11'",
-]
+dependencies = []
 requires-python = ">=3.9"
 readme = "README.md"
 license = {text = "Apache-2.0"}
