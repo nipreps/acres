@@ -126,7 +126,7 @@ class Loader:
         non-public means has a `.` or `_` prefix or is a 'tests'
         directory.
         """
-        from importlib.resources import files
+        from ._compat import files
 
         top_level = sorted(
             f'{p.name}/' if p.is_dir() else p.name
@@ -152,7 +152,7 @@ class Loader:
         This result is not cached or copied to the filesystem in cases where
         that would be necessary.
         """
-        from importlib.resources import files
+        from ._compat import files
 
         return files(self._anchor).joinpath(*segments)
 
@@ -165,7 +165,7 @@ class Loader:
         This result is not cached, and any temporary files that are created
         are deleted when the context is exited.
         """
-        from importlib.resources import as_file, files
+        from ._compat import as_file, files
 
         return as_file(files(self._anchor).joinpath(*segments))
 
