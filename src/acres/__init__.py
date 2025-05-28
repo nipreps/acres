@@ -37,30 +37,9 @@ including interpreter-lifetime caching.
 
 from __future__ import annotations
 
-import atexit
-import sys
-from contextlib import ExitStack
-from functools import cache, cached_property
-
 from . import typ as t
 
-if sys.version_info >= (3, 11):
-    from importlib.resources import as_file, files
-else:
-    from importlib_resources import as_file, files
-
 __all__ = ['Loader']
-
-
-# Use one global exit stack
-EXIT_STACK = ExitStack()
-atexit.register(EXIT_STACK.close)
-
-
-@cache
-def _cache_resource(anchor: str | t.ModuleType, segments: tuple[str, ...]) -> t.Path:
-    # PY310(importlib_resources): no-any-return, PY311+(importlib.resources): unused-ignore
-    return EXIT_STACK.enter_context(as_file(files(anchor).joinpath(*segments)))  # type: ignore[no-any-return,unused-ignore]
 
 
 class Loader:
@@ -137,11 +116,9 @@ class Loader:
 
     def __init__(self, anchor: str | t.ModuleType):
         self._anchor = anchor
-        self.files = files(anchor)
         # Allow class to have a different docstring from instances
-        self.__doc__ = self._doc
+        self.__doc__ = self._doc()
 
-    @cached_property
     def _doc(self) -> str:
         """Construct docstring for instances
 
@@ -149,9 +126,11 @@ class Loader:
         non-public means has a `.` or `_` prefix or is a 'tests'
         directory.
         """
+        from importlib.resources import files
+
         top_level = sorted(
             f'{p.name}/' if p.is_dir() else p.name
-            for p in self.files.iterdir()
+            for p in files(self._anchor).iterdir()
             if p.name[0] not in ('.', '_') and p.name != 'tests'
         )
         doclines = [
@@ -173,8 +152,9 @@ class Loader:
         This result is not cached or copied to the filesystem in cases where
         that would be necessary.
         """
-        # PY310(importlib_resources): no-any-return, PY311+(importlib.resources): unused-ignore
-        return self.files.joinpath(*segments)  # type: ignore[no-any-return,unused-ignore]
+        from importlib.resources import files
+
+        return files(self._anchor).joinpath(*segments)
 
     def as_path(self, *segments: str) -> t.AbstractContextManager[t.Path]:
         """Ensure data is available as a :class:`~pathlib.Path`.
@@ -185,8 +165,9 @@ class Loader:
         This result is not cached, and any temporary files that are created
         are deleted when the context is exited.
         """
-        # PY310(importlib_resources): no-any-return, PY311+(importlib.resources): unused-ignore
-        return as_file(self.files.joinpath(*segments))  # type: ignore[no-any-return,unused-ignore]
+        from importlib.resources import as_file, files
+
+        return as_file(files(self._anchor).joinpath(*segments))
 
     def cached(self, *segments: str) -> t.Path:
         """Ensure data resource is available as a :class:`~pathlib.Path`.
@@ -198,7 +179,8 @@ class Loader:
         data multiple times, but directories and their contents being
         requested separately may result in some duplication.
         """
-        # Use self._anchor and segments to ensure the cache does not depend on id(self.files)
-        return _cache_resource(self._anchor, segments)
+        from .cache import cached_resource
+
+        return cached_resource(self._anchor, segments)
 
     __call__ = cached

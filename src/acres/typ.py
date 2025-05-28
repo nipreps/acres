@@ -71,7 +71,7 @@ else:
             else 'importlib.abc',
         }
         try:
-            return getattr(__import__(types[name]), name)
+            return getattr(__import__(types[name], fromlist=['']), name)
         except KeyError:
             raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
 
