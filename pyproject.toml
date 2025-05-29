@@ -60,3 +60,8 @@ source = [
   "src/acres",
   "**/site-packages/acres",
 ]
+
+[tool.coverage.report]
+exclude_also = [
+  "if.*TYPE_CHECKING:",
+]
