@@ -65,7 +65,7 @@ jobs:
 
       - name: Install tox
         run: |
-          uv tool install --with=tox-uv tox
+          uv tool install -p 3.13 --with=tox-uv tox
       - name: Show tox config
         run: tox c
       - name: Run tox
