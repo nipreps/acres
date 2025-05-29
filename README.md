@@ -101,7 +101,7 @@ which lets it play nicely with type checkers.
 
 `Loader.cached` uses a global cache. This ensures that cached files do not get
 unloaded if a `Loader()` instance is garbage collected, and it also ensures that
-instances created cheaply and garbage collected when out of scope.
+instances can be created cheaply and garbage collected when out of scope.
 
 ## Why acres?
 
@@ -134,6 +134,21 @@ this bug will only exhibit when the package is zipped.
 
 `acres.Loader` aims to clearly delineate the scopes and capabilities of
 the accessed resources, including providing an interpreter-lifetime scope.
+
+## Type annotations
+
+`acres` is fully type-annotated, and checked with both `mypy` and `pyright`.
+The `Loader.readable` method returns a [Traversable][], which moved from
+`importlib.abc` in Python 3.10 to `importlib.resources.abc` in Python 3.11.
+To simplify the use of this annotation in functions that accept readable
+resources, use:
+
+```python
+import acres.typ as at
+
+def myfunc(resource: at.Traversable) -> ReturnType:
+    ...
+```
 
 [Traversable]: https://docs.python.org/3/library/importlib.resources.abc.html#importlib.resources.abc.Traversable
 [pathlib.Path]: https://docs.python.org/3/library/pathlib.html#pathlib.Path
