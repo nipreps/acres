@@ -69,7 +69,7 @@ jobs:
       - name: Show tox config
         run: tox c
       - name: Run tox
-        run: tox -v --exit-and-dump-after 60 --parallel --installpkg dist/*.whl
+        run: tox -v --exit-and-dump-after 60 --parallel-no-spinner --installpkg dist/*.whl
 
       - uses: codecov/codecov-action@v5
         if: ${{ always() }}
