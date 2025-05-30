@@ -42,9 +42,25 @@ must be used to avoid eager loading of the types.
 
 The primary use for this in downstream tools is the
 :class:`~importlib.resources.abc.Traversable` type, which will be imported
-from ``importlib.resources.abc`` or ``importlib.abc``, based on the Python
+from :mod:`importlib.resources.abc` or :mod:`importlib.abc`, based on the Python
 version. However, other types that are not directly used in acres are also
 available.
+
+.. data:: Traversable
+
+   alias of :class:`importlib.resources.abc.Traversable`
+
+.. data:: AbstractContextManager
+
+   alias of :class:`contextlib.AbstractContextManager`
+
+.. data:: Path
+
+   alias of :class:`pathlib.Path`
+
+.. data:: ModuleType
+
+   alias of :class:`types.ModuleType`
 """
 
 import sys

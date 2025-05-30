@@ -106,12 +106,6 @@ class Loader:
 
         with as_file(files(other_package) / 'data') as pkgdata:
             func(pkgdata)
-
-    .. automethod:: readable
-
-    .. automethod:: as_path
-
-    .. automethod:: cached
     """
 
     def __init__(self, anchor: str | t.ModuleType):
