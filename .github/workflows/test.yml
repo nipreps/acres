@@ -65,11 +65,11 @@ jobs:
 
       - name: Install tox
         run: |
-          uv tool install --with=tox-uv tox
+          uv tool install -p 3.13 --with=tox-uv tox
       - name: Show tox config
         run: tox c
       - name: Run tox
-        run: tox -v --exit-and-dump-after 60 --parallel --installpkg dist/*.whl
+        run: tox -v --exit-and-dump-after 60 --parallel-no-spinner --installpkg dist/*.whl
 
       - uses: codecov/codecov-action@v5
         if: ${{ always() }}

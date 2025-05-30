@@ -5,7 +5,7 @@ authors = [
   {name = "The NiPreps Developers", email = "nipreps@gmail.com"}
 ]
 dependencies = [
-  "importlib_resources >=5.7; python_version < '3.11'",
+  "importlib_resources >=5.7; python_version < '3.10'",
 ]
 requires-python = ">=3.9"
 readme = "README.md"
@@ -59,4 +59,9 @@ omit = [
 source = [
   "src/acres",
   "**/site-packages/acres",
+]
+
+[tool.coverage.report]
+exclude_also = [
+  "if.*TYPE_CHECKING:",
 ]
