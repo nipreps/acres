@@ -50,6 +50,7 @@ distribution = true
 source-includes = [
   "tests/",
   "tox.ini",
+  "uv.lock",
 ]
 
 [tool.pdm.version]
