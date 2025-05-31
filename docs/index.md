@@ -5,4 +5,5 @@
 
 ```{toctree}
 api/acres
+changelog
 ```
