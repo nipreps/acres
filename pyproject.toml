@@ -82,3 +82,8 @@ source = [
 exclude_also = [
   "if.*TYPE_CHECKING:",
 ]
+
+[tool.codespell]
+skip = [
+  "_build",
+]
