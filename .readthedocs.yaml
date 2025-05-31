@@ -1,0 +1,19 @@
+version: 2
+
+build:
+  os: ubuntu-lts-latest
+  tools:
+    python: latest
+  jobs:
+    pre_create_environment:
+      - asdf plugin add uv
+      - asdf install uv latest
+      - asdf global uv latest
+    create_environment:
+      - uv venv $READTHEDOCS_VIRTUALENV_PATH
+    install:
+      # Use a cache dir in the same mount to halve the install time
+      - VIRTUAL_ENV=$READTHEDOCS_VIRTUALENV_PATH uv sync --active --cache-dir $READTHEDOCS_VIRTUALENV_PATH/../../uv_cache --group doc
+
+sphinx:
+  configuration: docs/conf.py
