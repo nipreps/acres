@@ -1,4 +1,11 @@
 
+<a id='changelog-0.4.1'></a>
+# 0.4.1 — 2025-05-30
+
+## Infrastructure
+
+- Resolve issue with running tox from sdist.
+
 <a id='changelog-0.4.0'></a>
 # 0.4.0 — 2025-05-30
 
