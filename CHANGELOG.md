@@ -1,4 +1,25 @@
 
+<a id='changelog-0.4.0'></a>
+# 0.4.0 — 2025-05-30
+
+## Added
+
+- An `acres.typ` module is added for providing access to the types
+  accepted by or returned by `acres.Loader` and its methods.
+  Use `acres.typ.Traversable` to annotate types without checking
+  Python versions for its location.
+  Use `from __future__ import annotations` to avoid unnecessary imports
+  in Python 3.13 and lower.
+
+- Documentation is now rendered at https://nipreps-acres.readthedocs.io
+
+## Changed
+
+- Increased type coverage of tests.
+
+- The `importlib_resources` backport is no longer a dependency, even
+  for older Python versions.
+
 <a id='changelog-0.3.0'></a>
 # 0.3.0 — 2025-02-22
 
