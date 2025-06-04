@@ -1,5 +1,15 @@
 # Changelog
 
+<!-- scriv-insert-here -->
+
+<a id='changelog-0.5.0'></a>
+## 0.5.0 — 2025-06-04
+
+### Changed
+
+- Listing top-level package contents is now opt-in with the
+  `Loader(..., list_contents=True)` keyword argument.
+
 <a id='changelog-0.4.1'></a>
 ## 0.4.1 — 2025-05-30
 
