@@ -22,6 +22,12 @@ classifiers = [
 ]
 dynamic = ["version"]
 
+[project.urls]
+Documentation = "https://nipreps-acres.readthedocs.io/en/latest/"
+Repository = "https://github.com/nipreps/acres"
+Issues = "https://github.com/nipreps/acres/issues"
+Changelog = "https://nipreps-acres.readthedocs.io/en/latest/changelog.html"
+
 [dependency-groups]
 doc = [
     "furo>=2024.8.6",
