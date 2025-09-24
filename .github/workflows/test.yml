@@ -62,7 +62,6 @@ jobs:
           path: dist/
       - run: tar xf dist/*.tar.gz --strip-components=1
       - uses: astral-sh/setup-uv@v6
-      - run: uv sync
 
       - name: Install tox
         run: |

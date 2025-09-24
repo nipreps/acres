@@ -46,7 +46,7 @@ types = [
 ]
 
 [build-system]
-requires = ["pdm-backend"]
+requires = ["pdm-backend", "uv"]
 build-backend = "pdm.backend"
 
 [tool.pdm]
