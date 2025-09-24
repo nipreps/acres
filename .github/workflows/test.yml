@@ -55,13 +55,13 @@ jobs:
         os: ['ubuntu-latest', 'macos-latest', 'windows-latest']
 
     steps:
-      - uses: astral-sh/setup-uv@v6
       - name: Download packages
         uses: actions/download-artifact@v4
         with:
           name: Packages
           path: dist/
       - run: tar xf dist/*.tar.gz --strip-components=1
+      - uses: astral-sh/setup-uv@v6
       - run: uv sync
 
       - name: Install tox
