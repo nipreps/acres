@@ -127,7 +127,7 @@ class Loader:
         docstring = f'Load package files relative to ``{self._anchor}``.'
 
         if list_contents:
-            from ._compat import files
+            from importlib.resources import files
 
             top_level = sorted(
                 f'{p.name}/' if p.is_dir() else p.name
@@ -154,7 +154,7 @@ class Loader:
         This result is not cached or copied to the filesystem in cases where
         that would be necessary.
         """
-        from ._compat import files
+        from importlib.resources import files
 
         return files(self._anchor).joinpath(*segments)
 
@@ -167,7 +167,7 @@ class Loader:
         This result is not cached, and any temporary files that are created
         are deleted when the context is exited.
         """
-        from ._compat import as_file, files
+        from importlib.resources import as_file, files
 
         return as_file(files(self._anchor).joinpath(*segments))
 
