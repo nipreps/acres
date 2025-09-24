@@ -13,7 +13,7 @@ build:
       - uv venv $READTHEDOCS_VIRTUALENV_PATH
     install:
       # Use a cache dir in the same mount to halve the install time
-      - VIRTUAL_ENV=$READTHEDOCS_VIRTUALENV_PATH uv sync --active --cache-dir $READTHEDOCS_VIRTUALENV_PATH/../../uv_cache --group doc
+      - VIRTUAL_ENV=$READTHEDOCS_VIRTUALENV_PATH uv sync --active --frozen --cache-dir $READTHEDOCS_VIRTUALENV_PATH/../../uv_cache --group doc
 
 sphinx:
   configuration: docs/conf.py
