@@ -5,8 +5,7 @@ from contextlib import ExitStack
 from functools import cache
 
 from . import typ as t
-from ._compat import files, as_file
-
+from ._compat import as_file, files
 
 EXIT_STACK = ExitStack()
 atexit.register(EXIT_STACK.close)

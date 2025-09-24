@@ -89,7 +89,7 @@ else:
         try:
             return getattr(__import__(types[name], fromlist=['']), name)
         except KeyError:
-            raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
+            raise AttributeError(f'module {__name__!r} has no attribute {name!r}') from None
 
 
 __all__ = (
