@@ -69,8 +69,10 @@ jobs:
           uv tool install -p 3.13 --with=tox-uv tox
       - name: Show tox config
         run: tox c
-      - name: Run tox
-        run: tox -v --exit-and-dump-after 60 --parallel-no-spinner --installpkg dist/*.whl
+      - name: Setup test suite
+        run: tox run -vv --notest --skip-missing-interpreters false
+      - name: Run test suite
+        run: tox -v --skip-pkg-install --exit-and-dump-after 60 --parallel-no-spinner
 
       - uses: codecov/codecov-action@v5
         if: ${{ always() }}
