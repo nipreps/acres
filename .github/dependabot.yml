@@ -8,6 +8,8 @@ updates:
       actions-infrastructure:
         patterns:
           - "actions/*"
+    cooldown:
+      default-days: 7
   - package-ecosystem: uv
     directory: "/"
     schedule:
@@ -15,3 +17,5 @@ updates:
     groups:
       uv:
         patterns: ["*"]
+    cooldown:
+      default-days: 7
