@@ -62,7 +62,7 @@ jobs:
           name: Packages
           path: dist/
       - run: tar xf dist/*.tar.gz --strip-components=1
-      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v7 # zizmor: ignore[cache-poisoning]
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v7 # zizmor: ignore[cache-poisoning]
 
       - name: Install tox
         run: |
